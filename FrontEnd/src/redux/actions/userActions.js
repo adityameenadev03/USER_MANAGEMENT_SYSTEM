@@ -1,5 +1,5 @@
 import { DELETE_USER, ADD_USER, EDIT_USER, GET_ALL_USER } from "./types";
-
+import { instance } from "../../services/Service";
 export const fetchAllUsers = (params) => {
   return async (dispatch, getState) => {
     console.log("fetching data");
@@ -32,6 +32,7 @@ export const deleteUser = (param, id) => {
 
 export const addUser = (param, body) => {
   return async (dispatch, getState) => {
+    console.log("hello");
     try {
       console.log(param, body);
       const response = await instance.post(`${param}`, body);
@@ -40,7 +41,9 @@ export const addUser = (param, body) => {
       if (data) {
         dispatch(ADD_USER({ ...data, personId: data.personId }));
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 

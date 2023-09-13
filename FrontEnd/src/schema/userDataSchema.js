@@ -14,6 +14,7 @@ export const userDataSchema = yup.object().shape({
   phone: yup
     .string()
     .matches(phoneRegex, "Please enter a valid Phone")
+    .max(10, "Phone number must be 10 digits or less")
     .required("Phone number is Required"),
   gender: yup.string().required("Gender is Required "),
 });

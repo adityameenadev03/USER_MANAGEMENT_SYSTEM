@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
-import { signupSchema } from "../schema/signupSchema";
+import { signupSchema } from "../../schema/signupSchema";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
@@ -13,16 +13,20 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { SET_USER } from "../redux/actions/types";
-import { signupUser } from "../redux/actions/authActions";
+import { SET_USER } from "../../redux/actions/types";
+import { loginUser, signupUser } from "../../redux/actions/authActions";
+import { loginSchema } from "../../schema/loginSchema";
 
-const SignUp = () => {
+const Login = () => {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   //   const navigate = useNavigate();
 
-  const saveUseronDatabase = async (values) => {
+  const handleLogin = async (values) => {
     try {
-      const data = await signupUser("/user/signupUser", values);
+      const data = await loginUser("/user/loginUser", values);
       console.log(data);
       if (data) {
         dispatch(SET_USER(data));
@@ -48,14 +52,14 @@ const SignUp = () => {
     >
       <Typography variant="h4" margin={2}>
         {" "}
-        Signup{" "}
+        Login{" "}
       </Typography>
       <Formik
-        initialValues={{ name: "", email: "", password: "" }}
-        validationSchema={signupSchema}
+        initialValues={{ email: "", password: "" }}
+        validationSchema={loginSchema}
         onSubmit={(values, { setSubmitting }) => {
           console.log(values);
-          saveUseronDatabase(values);
+          handleLogin(values);
         }}
       >
         {({
@@ -68,19 +72,6 @@ const SignUp = () => {
           isValid,
         }) => (
           <Form component="form">
-            <Field
-              as={TextField}
-              label="Name"
-              name="name"
-              sx={{ mb: 2 }}
-              fullWidth
-              variant="outlined"
-              margin="dense"
-              helperText={<ErrorMessage name="name" />}
-              error={errors.name && touched.name}
-              required
-            />
-
             <Field
               variant="outlined"
               as={TextField}
@@ -114,13 +105,13 @@ const SignUp = () => {
               disabled={isSubmitting}
             >
               <Typography variant="inherit" component="p">
-                SignUp
+                Login
               </Typography>
             </Button>
             <Typography variant="inherit" component="p" margin={1}>
-              Already a user{" "}
+              Not a User{" "}
               <Link to="/" className="text-decoration-none">
-                Login here
+                Signup here
               </Link>
             </Typography>
           </Form>
@@ -130,4 +121,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;

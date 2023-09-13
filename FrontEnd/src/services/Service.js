@@ -11,6 +11,8 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(
   function (config) {
+    console.log("jdjag");
+
     if (config.authorization !== false) {
       const token = JSON.parse(localStorage.getItem("user"))?.token;
       if (token) {

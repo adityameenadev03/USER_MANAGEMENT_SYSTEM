@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -71,7 +71,7 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
 
 
 .signup_form .input {
@@ -80,4 +80,11 @@ button:focus-visible {
 
 .signup_form .input::after {
   margin-bottom: 0px;
+}
+
+.form_radio_label {
+  display: flex !important;
+  flex-direction: row !important;
+  /* justify-content: baseline !important; */
+  align-items: center;
 }

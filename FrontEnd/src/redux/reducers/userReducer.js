@@ -1,5 +1,5 @@
 const initialState = {
-  dataArray: [],
+  dataArray: JSON.parse(localStorage.getItem("dataArray")) || [],
   error: null,
   loading: false,
 };
@@ -28,7 +28,7 @@ const userReducer = (state = initialState, action) => {
       return { ...state, dataArray: [...dataArrayAfterDelete] };
 
     case "EDIT_USER":
-      let dataArrayAfterEdit = [...state.formsArray].map((item) =>
+      let dataArrayAfterEdit = [...state.dataArray].map((item) =>
         item._id == action.payload._id ? { ...action.payload } : item
       );
       localStorage.setItem("dataArray", JSON.stringify(dataArrayAfterEdit));

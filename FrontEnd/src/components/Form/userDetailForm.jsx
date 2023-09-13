@@ -1,134 +1,212 @@
 import React, { useEffect, useState } from "react";
-import { Field, Form, Formik, useFormikContext } from "formik";
+import { ErrorMessage, Field, Form, Formik, useFormikContext } from "formik";
+import { MuiTelInput } from "mui-tel-input";
 import {
   Box,
   Button,
+  Container,
   FormControl,
   FormControlLabel,
   FormLabel,
   Radio,
   RadioGroup,
+  TextField,
 } from "@mui/material";
 import "./styles.css";
 import { userDataSchema } from "../../schema/userDataSchema";
 
+import { v4 as uuid } from "uuid";
+import { addUser, editUser } from "../../redux/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
 // import { Button, Card } from "react-bootstrap";
 const UserDetailForm = () =>
   // { editing }
   {
+    const [editing, setEditing] = useState(false);
+    const unique_id = uuid().slice(0, 8);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const dataArray = useSelector((state) => state?.users?.dataArray);
+
+    const { id } = useParams();
+    console.log(id);
+    let data;
+    if (id) {
+      data = dataArray.find((item) => item.personId == id);
+    }
+
+    const initialValues = data
+      ? data
+      : { name: "", email: "", phone: "", gender: null };
+
+    useEffect(() => {
+      if (id) {
+        setEditing(true);
+      }
+    }, [id]);
+
+    console.log(editing);
     return (
       <>
-        <Formik
-          initialValues={{ name: "", email: "", phone: "", gender: null }}
-          validateOnMount:true
-          onSubmit={(values, actions) => {
-            console.log(values);
+        <Container
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            width: "1200px",
+            marginTop: "100px",
           }}
-          validationSchema={userDataSchema}
         >
-          {({ errors, touched, isSubmitting, isValid }) => (
-            <Form>
-              <label htmlFor="name" className="form-label">
-                Name
-              </label>
-              <Field
-                id="name"
-                type="text"
-                name="name"
-                placeholder="Enter your Name"
-              />
-
-              {errors.name && touched.name ? (
-                <div className="error">{errors.name}</div>
-              ) : null}
-
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
-              <Field
-                id="email"
-                name="email"
-                placeholder="Enter Your Email"
-                type="email"
-              />
-              {errors.email && touched.email ? (
-                <div className="error">{errors.email}</div>
-              ) : null}
-              <label htmlFor="phone" className="form-label">
-                Phone
-              </label>
-              <Field
-                id="phone"
-                name="phone"
-                placeholder="Enter Your Phone Number"
-                type="tel"
-                maxLength={10}
-              />
-              {errors.phone && touched.phone ? (
-                <div className="error">{errors.phone}</div>
-              ) : null}
-
-              <Box
-                role="group"
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-
-                  marginTop: 1,
-                }}
-              >
-                <span>Gender : </span>
-                <label className="formik_label">
-                  <Field type="radio" name="gender" value="male" />
-                  Male
-                </label>
-                <label className="formik_label">
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "row",
+              alignItems: "center",
+              marginBottom: "20px",
+            }}
+          >
+            <Link to="/">
+              <Button variant="outlined"> Go HOME </Button>
+            </Link>
+          </Box>
+          <Box
+            sx={{
+              width: 600,
+              padding: "20px 20px",
+              boxShadow: 3,
+              borderRadius: "8px",
+              border: "2px solid",
+              borderColor: "lightgray",
+              margin: "0 auto",
+              //   height: 500,
+              //   backgroundColor: "gray",
+            }}
+          >
+            <Formik
+              initialValues={initialValues}
+              validateOnMount:true
+              onSubmit={(values, actions) => {
+                if (editing) {
+                  console.log("editing", values);
+                  dispatch(editUser("/userData/editUser", { ...values }));
+                } else {
+                  dispatch(
+                    addUser("/userData/addUser", {
+                      ...values,
+                      personId: unique_id,
+                    })
+                  );
+                  actions.resetForm();
+                }
+                navigate("/");
+              }}
+              validationSchema={userDataSchema}
+            >
+              {({ errors, touched, isSubmitting, isValid }) => (
+                <Form>
+                  <label htmlFor="name" className="form-label">
+                    Name
+                  </label>
                   <Field
-                    className="formik_field"
-                    type="radio"
-                    name="gender"
-                    value="female"
+                    id="name"
+                    type="text"
+                    name="name"
+                    as={TextField}
+                    helperText={<ErrorMessage name="name" />}
+                    error={errors.name && touched.name}
+                    placeholder="Enter your Name"
+                    sx={{ mb: 2 }}
+                    fullWidth
+                    variant="outlined"
+                    margin="dense"
+                    required
                   />
-                  Female
-                </label>
-                {errors.gender && touched.gender ? (
-                  <div className="error">{errors.gender}</div>
-                ) : null}
-              </Box>
+                  <label htmlFor="email" className="form-label">
+                    Email
+                  </label>
+                  <Field
+                    id="email"
+                    name="email"
+                    placeholder="Enter Your Email"
+                    type="email"
+                    as={TextField}
+                    helperText={<ErrorMessage name="email" />}
+                    error={errors.email && touched.email}
+                    sx={{ mb: 2 }}
+                    fullWidth
+                    variant="outlined"
+                    margin="dense"
+                    required
+                  />
+                  <label htmlFor="phone" className="form-label">
+                    Phone
+                  </label>
+                  <Field
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter Your Phone Number"
+                    type="text"
+                    as={TextField}
+                    maxLength={10}
+                    helperText={<ErrorMessage name="phone" />}
+                    error={errors.phone && touched.phone}
+                    sx={{ mb: 2 }}
+                    fullWidth
+                    variant="outlined"
+                    margin="dense"
+                    required
+                  />
 
-              {/* <Button
-          type="submit"
-          className={
-            isValid
-              ? "bg-primary text-white mt-3"
-              : "bg-primary text-white mt-3 opacity-25"
-          }
-          disabled={isSubmitting || (editing && !isValid)}
-        >
-          {editing ? "Save" : "Submit"}
-        </Button> */}
+                  <Field
+                    name="gender"
+                    helperText={<ErrorMessage name="gender" />}
+                    error={errors.gender && touched.gender}
+                  >
+                    {({ field }) => (
+                      <RadioGroup
+                        {...field}
+                        value={field.value || null}
+                        onChange={(e) => field.onChange(e)}
+                      >
+                        {console.log(field)}
+                        <FormControlLabel
+                          value="male"
+                          control={<Radio />}
+                          label="Male"
+                        />
+                        <FormControlLabel
+                          value="female"
+                          control={<Radio />}
+                          label="Female"
+                        />
+                      </RadioGroup>
+                    )}
+                  </Field>
 
-              <Button
-                type="submit"
-                variant="contained"
-                sx={
-                  isValid
-                    ? { marginTop: "20px" }
-                    : { marginTop: "20px", opacity: 0.6 }
-                }
-                className={
-                  isValid
-                    ? "bg-primary text-white mt-3"
-                    : "bg-primary text-white mt-3 opacity-25"
-                }
-                // disabled={isSubmitting || (false && !isValid)}
-                disabled={isValid && false}
-              >
-                {false ? "Save" : "Submit"}
-              </Button>
-            </Form>
-          )}
-        </Formik>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={
+                      isValid
+                        ? { marginTop: "20px" }
+                        : { marginTop: "20px", opacity: 0.6 }
+                    }
+                    // className={
+                    //   isValid
+                    //     ? "bg-primary text-white mt-3"
+                    //     : "bg-primary text-white mt-3 opacity-25"
+                    // }
+                    disabled={isSubmitting || (editing && !isValid)}
+                  >
+                    {editing ? "Save" : "Submit"}
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+          </Box>
+        </Container>
       </>
     );
   };
