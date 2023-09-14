@@ -12,3 +12,8 @@
   text-align: left;
   margin-top: 0.25rem;
 }
+
+
+.link_tag {
+  text-decoration: none;
+}

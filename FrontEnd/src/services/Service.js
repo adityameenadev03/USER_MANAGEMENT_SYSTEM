@@ -11,8 +11,6 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(
   function (config) {
-    console.log("jdjag");
-
     if (config.authorization !== false) {
       const token = JSON.parse(localStorage.getItem("user"))?.token;
       if (token) {
@@ -22,6 +20,9 @@ instance.interceptors.request.use(
     return config;
   },
   function (error) {
+    console.log(error);
+    toast.error(error.message);
+
     return Promise.reject(error);
   }
 );
@@ -29,12 +30,12 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     console.log(response);
-    successNotification("fetched");
-
     return response;
   },
   (error) => {
     console.log(error);
+    toast.error("Network error");
+
     try {
       if (error?.response?.data) {
         throw Error(`${error?.response?.data?.message}`);
@@ -47,7 +48,6 @@ instance.interceptors.response.use(
         }
       }
     } catch (error) {
-      toast.error(error?.message);
       return Promise.reject(error);
     }
   }

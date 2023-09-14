@@ -82,3 +82,8 @@ button:disabled {
     /* margin-right: 20px; */
     font-weight: normal;
 }
+
+
+.MuiButtonBase-root span {
+    margin-top: 0;
+}

@@ -29,7 +29,14 @@ const NavBar = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav">
+      <AppBar
+        component="nav"
+        sx={{
+          padding: "0 80px",
+          backgroundColor: "#fafafa",
+          color: "#424242",
+        }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -45,18 +52,38 @@ const NavBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            SYSMANAGE
+            YuvaSoft
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Link to="/">
-              <Button sx={{ color: "#fff" }}>Home</Button>
+          <Box
+            // sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              gap: 4,
+              verticalAlign: "center",
+            }}
+          >
+            <Link to="/" className="link_tag">
+              <Typography
+                color="#212121"
+                // sx={{
+                //   color: "#424242",
+                // }}
+              >
+                Home
+              </Typography>
             </Link>
             {isLoggedIn && (
               <>
-                <Button sx={{ color: "#fff" }}>
-                  <Typography>Hi, {user.email}</Typography>
-                </Button>
-                <Button sx={{ color: "#fff" }} onClick={logoutUser}>
+                <Typography sx={{ color: "#424242" }}>
+                  Hi, {user.name}
+                </Typography>
+                <Button
+                  sx={{ color: "#fff" }}
+                  onClick={logoutUser}
+                  variant="contained"
+                >
                   Logout
                 </Button>
               </>
@@ -65,10 +92,14 @@ const NavBar = () => {
               <>
                 {" "}
                 <Link to="/login">
-                  <Button sx={{ color: "#fff" }}>Login</Button>
+                  <Button sx={{ color: "#fff" }} variant="contained">
+                    Login
+                  </Button>
                 </Link>
                 <Link to="/signup">
-                  <Button sx={{ color: "#fff" }}>SignUp</Button>
+                  <Button sx={{ color: "#fff" }} variant="contained">
+                    SignUp
+                  </Button>
                 </Link>
               </>
             )}

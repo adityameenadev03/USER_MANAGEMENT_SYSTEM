@@ -3,6 +3,7 @@ const userData = require("../model/userDataModel");
 
 const addUser = async (req, res) => {
   const userDetail = req.body;
+  console.log(userDetail);
   try {
     const data = await userData.create({ ...userDetail });
     const { name, email, phone, gender, personId, _id } = data;
@@ -23,12 +24,13 @@ const deleteUser = async (req, res) => {
   try {
     const resDlete = await userData.findByIdAndDelete(id);
     console.log(5555, resDlete);
-    res.status(204).json({ status: "ok", data: resDlete?._id });
+    res.status(200).json({ status: "ok", data: resDlete?._id });
   } catch (err) {
     console.log(err);
     res.status(400).json({ status: "error", message: err.message });
   }
 };
+
 const editUser = async (req, res) => {
   const user = req.body;
   console.log(user._id);
