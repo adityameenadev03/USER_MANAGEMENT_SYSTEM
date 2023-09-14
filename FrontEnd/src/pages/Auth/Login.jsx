@@ -30,7 +30,7 @@ const Login = () => {
       console.log(data);
       if (data) {
         dispatch(SET_USER(data));
-        navigate("/");
+        navigate("/displayUserData");
       }
 
       console.log("fetch from server", data);
@@ -40,13 +40,12 @@ const Login = () => {
   };
   return (
     <Container
+      elevation="4"
       sx={{
         width: 400,
         padding: "20px 20px",
-        boxShadow: 3,
-        borderRadius: "8px",
-        border: "2px solid",
-        borderColor: "lightgray",
+        boxShadow: 4,
+        borderRadius: "12px",
         textAlign: "center",
       }}
     >
@@ -100,7 +99,7 @@ const Login = () => {
             />
             <Button
               variant="contained"
-              sx={{ mt: 2 }}
+              sx={{ mt: 1 }}
               type="submit"
               disabled={isSubmitting}
             >
@@ -108,9 +107,9 @@ const Login = () => {
                 Login
               </Typography>
             </Button>
-            <Typography variant="inherit" component="p" margin={1}>
+            <Typography variant="subtitle2" component="p" margin={2}>
               Not a User{" "}
-              <Link to="/" className="text-decoration-none">
+              <Link to="/signup" className="link_tag">
                 Signup here
               </Link>
             </Typography>

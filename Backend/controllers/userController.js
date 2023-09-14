@@ -1,11 +1,12 @@
 const jwt = require("jsonwebtoken");
 const User = require("../model/userModel");
+const { handleApiError } = require("../middleware/errorHandling");
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.JWT_KEY, { expiresIn: "3d" });
 };
 
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
   console.log(req.body);
   try {
@@ -15,11 +16,10 @@ const loginUser = async (req, res) => {
     const token = createToken(user._id);
     res.status(200).json({ name, email, token });
   } catch (error) {
-    console.log(error);
-    res.status(404).json({ status: "error", message: error.message });
+    next(error);
   }
 };
-const signupUser = async (req, res) => {
+const signupUser = async (req, res, next) => {
   const { name, email, password } = req.body;
   console.log(req.body);
   try {
@@ -29,10 +29,9 @@ const signupUser = async (req, res) => {
 
     // create a Token
     const token = createToken(user._id);
-
     res.status(200).json({ name, email, token });
   } catch (error) {
-    res.status(400).json({ status: "error", message: error.message });
+    next(error);
   }
 };
 

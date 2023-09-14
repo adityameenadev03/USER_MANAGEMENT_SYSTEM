@@ -1,39 +1,24 @@
 import React, { useEffect } from "react";
-import { Box, Button, Container } from "@mui/material";
-import UserCard from "../../components/Card/UserCard";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { fetchAllUsers } from "../../redux/actions/userActions";
+import { Box, Button, Container, Typography } from "@mui/material";
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchAllUsers("/userData/getAllUsers"));
-  }, []);
-
   return (
     <Container sx={{ width: "100%", marginTop: "100px" }}>
       <Box
         sx={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
+          alignItems: "center",
+          gap: 3,
         }}
       >
-        <Link to="/addUser">
-          <Button
-            variant="contained"
-            sx={{
-              marginBottom: 6,
-              marginTop: 2,
-            }}
-          >
-            Add User{" "}
-          </Button>
-        </Link>
+        <Typography variant="h2"> Welcome to Home Page</Typography>
+        <Typography variant="h6">
+          {" "}
+          Please Login in order to Add users data{" "}
+        </Typography>
       </Box>
-
-      <UserCard></UserCard>
     </Container>
   );
 };

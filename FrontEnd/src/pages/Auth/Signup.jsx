@@ -29,7 +29,7 @@ const SignUp = () => {
       console.log(data);
       if (data) {
         dispatch(SET_USER(data));
-        navigate("/");
+        navigate("/displayUserData");
       }
 
       console.log("fetch from server", data);
@@ -112,7 +112,7 @@ const SignUp = () => {
             />
             <Button
               variant="contained"
-              sx={{ mt: 2 }}
+              sx={{ mt: 1 }}
               type="submit"
               disabled={isSubmitting}
             >
@@ -120,9 +120,9 @@ const SignUp = () => {
                 SignUp
               </Typography>
             </Button>
-            <Typography variant="inherit" component="p" margin={1}>
+            <Typography variant="subtitle2" component="p" margin={2}>
               Already a user{" "}
-              <Link to="/login" className="text-decoration-none">
+              <Link to="/login" className="link_tag" color="green">
                 Login here
               </Link>
             </Typography>

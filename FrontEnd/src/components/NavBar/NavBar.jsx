@@ -27,10 +27,11 @@ const NavBar = () => {
     navigate("/login");
   };
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", marginBottom: "50px" }}>
       <CssBaseline />
       <AppBar
         component="nav"
+        position="static"
         sx={{
           padding: "0 80px",
           backgroundColor: "#fafafa",

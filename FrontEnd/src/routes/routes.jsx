@@ -4,6 +4,23 @@ import SignUp from "../pages/Auth/Signup";
 import ProtectedRoute from "./ProtectRoutes";
 import Login from "../pages/Auth/Login";
 import AddUser from "../pages/User/AddUser";
+import DisplayUserData from "../pages/User/DisplayUserData";
+
+const publicRoutes = [
+  { path: "/login", element: <Login></Login> },
+  { path: "/signup", element: <SignUp></SignUp> },
+];
+const protectedRoutes = [
+  { path: "/", element: <Home></Home> },
+  { path: "/displayUserData", element: <DisplayUserData></DisplayUserData> },
+  { path: "/addUser", element: <AddUser></AddUser> },
+  { path: "/addUser/:id", element: <AddUser></AddUser> },
+];
+
+const routes = (isLoggedIn) => {
+  return isLoggedIn ? protectedRoutes : publicRoutes;
+};
+export default routes;
 
 // const routes = (isLoggedIn) => [
 //   {
@@ -39,18 +56,3 @@ import AddUser from "../pages/User/AddUser";
 //     element: isLoggedIn ? <Navigate to="/"></Navigate> : <Login></Login>,
 //   },
 // ];
-
-const publicRoutes = [
-  { path: "/login", element: <Login></Login> },
-  { path: "/signup", element: <SignUp></SignUp> },
-];
-const protectedRoutes = [
-  { path: "/", element: <Home></Home> },
-  { path: "/addUser", element: <AddUser></AddUser> },
-  { path: "/addUser/:id", element: <AddUser></AddUser> },
-];
-
-const routes = (isLoggedIn) => {
-  return isLoggedIn ? protectedRoutes : publicRoutes;
-};
-export default routes;

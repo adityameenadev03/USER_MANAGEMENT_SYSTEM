@@ -12,15 +12,21 @@ import { useEffect } from "react";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state?.auth);
-  console.log(routes(isLoggedIn));
   const routing = useRoutes(routes(isLoggedIn));
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/login");
+    if (isLoggedIn) {
+      console.log(window.location.pathname);
+      if (
+        window.location.pathname == "/login" ||
+        window.location.pathname == "/signup"
+      ) {
+        navigate("/");
+      }
     }
-  }, [isLoggedIn]);
+  }, []);
+
   return (
     <Container>
       <NavBar></NavBar>
