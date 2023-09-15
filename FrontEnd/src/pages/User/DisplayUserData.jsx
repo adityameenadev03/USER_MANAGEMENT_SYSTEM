@@ -31,7 +31,7 @@ const DisplayUserData = () => {
           </Button>
         </Link>
       </Box>
-      <UserCard></UserCard>
+      <UserCard />
     </Container>
   );
 };

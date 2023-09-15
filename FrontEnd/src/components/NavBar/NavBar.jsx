@@ -23,7 +23,7 @@ const NavBar = () => {
   const { user, isLoggedIn } = useSelector((state) => state?.auth);
   console.log(user);
   const logoutUser = () => {
-    dispatch(REMOVE_USER());
+    dispatch({ type: REMOVE_USER });
     navigate("/login");
   };
   return (
@@ -65,7 +65,7 @@ const NavBar = () => {
               verticalAlign: "center",
             }}
           >
-            <Link to="/" className="link_tag">
+            <Link to="/home" className="link_tag">
               <Typography
                 color="#212121"
                 // sx={{
@@ -75,8 +75,19 @@ const NavBar = () => {
                 Home
               </Typography>
             </Link>
+
             {isLoggedIn && (
               <>
+                <Link to="/displayUserData" className="link_tag">
+                  <Typography
+                    color="#212121"
+                    // sx={{
+                    //   color: "#424242",
+                    // }}
+                  >
+                    User Data
+                  </Typography>
+                </Link>
                 <Typography sx={{ color: "#424242" }}>
                   Hi, {user.name}
                 </Typography>

@@ -14,8 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 import { SET_USER } from "../../redux/actions/types";
-import { loginUser, signupUser } from "../../redux/actions/authActions";
 import { loginSchema } from "../../schema/loginSchema";
+import { loginUser } from "../../redux/actions/authActions";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -24,19 +24,9 @@ const Login = () => {
 
   //   const navigate = useNavigate();
 
-  const handleLogin = async (values) => {
-    try {
-      const data = await loginUser("/user/loginUser", values);
-      console.log(data);
-      if (data) {
-        dispatch(SET_USER(data));
-        navigate("/displayUserData");
-      }
-
-      console.log("fetch from server", data);
-    } catch (err) {
-      console.log(err);
-    }
+  const handleLogin = (values) => {
+    dispatch(loginUser("/user/loginUser", values));
+    navigate("/displayUserData");
   };
   return (
     <Container

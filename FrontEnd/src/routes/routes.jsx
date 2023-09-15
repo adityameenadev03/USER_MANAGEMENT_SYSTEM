@@ -6,19 +6,22 @@ import Login from "../pages/Auth/Login";
 import AddUser from "../pages/User/AddUser";
 import DisplayUserData from "../pages/User/DisplayUserData";
 
-const publicRoutes = [
-  { path: "/login", element: <Login></Login> },
-  { path: "/signup", element: <SignUp></SignUp> },
+const publicRoutes = [{ path: "/home", element: <Home /> }];
+
+const authRoutes = [
+  { path: "/login", element: <Login /> },
+  { path: "/signup", element: <SignUp /> },
 ];
 const protectedRoutes = [
-  { path: "/", element: <Home></Home> },
-  { path: "/displayUserData", element: <DisplayUserData></DisplayUserData> },
-  { path: "/addUser", element: <AddUser></AddUser> },
-  { path: "/addUser/:id", element: <AddUser></AddUser> },
+  { path: "/displayUserData", element: <DisplayUserData /> },
+  { path: "/addUser", element: <AddUser /> },
+  { path: "/addUser/:id", element: <AddUser /> },
 ];
 
 const routes = (isLoggedIn) => {
-  return isLoggedIn ? protectedRoutes : publicRoutes;
+  return isLoggedIn
+    ? [...protectedRoutes, ...publicRoutes]
+    : [...publicRoutes, ...authRoutes];
 };
 export default routes;
 

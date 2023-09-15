@@ -17,20 +17,28 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      console.log(window.location.pathname);
       if (
         window.location.pathname == "/login" ||
         window.location.pathname == "/signup"
       ) {
-        navigate("/");
+        navigate("/displayUserData");
+      }
+    } else {
+      if (
+        window.location.pathname !== "/login" ||
+        window.location.pathname !== "/signup"
+      ) {
+        navigate("/home");
       }
     }
   }, []);
 
   return (
     <Container>
-      <NavBar></NavBar>
-      <ToastContainer></ToastContainer>
+      <NavBar />
+      <ToastContainer />
+      {/* {isLoggedIn ? <ProtectedRoute>{routing}</ProtectedRoute> : routing} */}
+
       {routing}
     </Container>
   );

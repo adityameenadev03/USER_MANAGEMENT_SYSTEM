@@ -42,7 +42,7 @@ const AddUser = () => {
             //   backgroundColor: "gray",
           }}
         >
-          <AddUserFormFormik></AddUserFormFormik>
+          <AddUserFormFormik />
         </Box>
       </Container>
     </>

@@ -15,7 +15,7 @@ const handleApiError = (err, req, res, next) => {
     // MongoDB duplicate key error
     status = 400;
     message = "Duplicate entry. A similar record already exists.";
-  } else if (err.message === "Not found") {
+  } else if (err.message === "Not found" || err.name === "CastError") {
     // Resource not found error
     status = 404;
     message = "The requested resource was not found.";

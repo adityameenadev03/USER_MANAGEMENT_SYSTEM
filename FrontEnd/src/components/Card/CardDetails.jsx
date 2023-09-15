@@ -53,7 +53,7 @@ const CardDetails = ({ userItem }) => {
           handleOpen={handleOpen}
           open={open}
           deleteId={userItem?._id}
-        ></DeleteModal>
+        />
       </CardActions>
     </>
   );

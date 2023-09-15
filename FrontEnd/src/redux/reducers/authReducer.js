@@ -1,3 +1,5 @@
+import { SET_USER, REMOVE_USER } from "../actions/types";
+
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
   token: JSON.parse(localStorage.getItem("token")) || null,
@@ -8,7 +10,7 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_USER":
+    case SET_USER:
       localStorage.setItem("user", JSON.stringify(action.payload));
       const { token } = action.payload;
       localStorage.setItem("token", JSON.stringify(token));
@@ -21,7 +23,7 @@ const authReducer = (state = initialState, action) => {
         isLoggedIn: true,
       };
 
-    case "REMOVE_USER":
+    case REMOVE_USER:
       localStorage.removeItem("user");
       localStorage.removeItem("token");
       localStorage.removeItem("isLoggedIn");

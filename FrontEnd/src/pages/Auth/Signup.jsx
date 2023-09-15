@@ -24,18 +24,8 @@ const SignUp = () => {
   //   const navigate = useNavigate();
 
   const saveUseronDatabase = async (values) => {
-    try {
-      const data = await signupUser("/user/signupUser", values);
-      console.log(data);
-      if (data) {
-        dispatch(SET_USER(data));
-        navigate("/displayUserData");
-      }
-
-      console.log("fetch from server", data);
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(signupUser("/user/signupUser", values));
+    navigate("/displayUserData");
   };
   return (
     <Container

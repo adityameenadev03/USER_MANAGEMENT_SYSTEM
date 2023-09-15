@@ -20,12 +20,9 @@ const addUser = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
   const id = req.params.id;
-  console.log(req.params.id);
+  console.log("param", req.params.id);
   try {
     const data = await userData.findByIdAndDelete(id);
-    if (!data) {
-      throw Error("Not found");
-    }
     res.status(200).json({
       status: "success",
       message: "Successfully Deleted User",
@@ -57,6 +54,9 @@ const editUser = async (req, res, next) => {
 const getAllUsers = async (req, res, next) => {
   try {
     const data = await userData.find();
+    if (!data) {
+      throw Error("Not found");
+    }
     res.status(200).json({
       status: "success",
       message: "Successfully Retrived All User",

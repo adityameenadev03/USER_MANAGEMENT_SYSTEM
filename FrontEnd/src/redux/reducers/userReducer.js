@@ -1,3 +1,10 @@
+import {
+  ADD_USER,
+  GET_ALL_USER,
+  DELETE_USER,
+  EDIT_USER,
+} from "../actions/types";
+
 const initialState = {
   dataArray: JSON.parse(localStorage.getItem("dataArray")) || [],
   error: null,
@@ -6,18 +13,18 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "GET_ALL_USER":
+    case GET_ALL_USER:
       console.log(action.payload);
       localStorage.setItem("dataArray", JSON.stringify(action.payload));
       return { ...state, dataArray: [...action.payload] };
 
-    case "ADD_USER":
+    case ADD_USER:
       console.log(action.payload);
       let newDataArray = [...state.dataArray, action.payload];
       localStorage.setItem("dataArray", JSON.stringify(newDataArray));
       return { ...state, dataArray: [...newDataArray] };
 
-    case "DELETE_USER":
+    case DELETE_USER:
       console.log(action.payload);
       let dataArrayAfterDelete = [...state.dataArray].filter((item) => {
         console.log(item._id);
@@ -27,7 +34,7 @@ const userReducer = (state = initialState, action) => {
       localStorage.setItem("dataArray", JSON.stringify(dataArrayAfterDelete));
       return { ...state, dataArray: [...dataArrayAfterDelete] };
 
-    case "EDIT_USER":
+    case EDIT_USER:
       let dataArrayAfterEdit = [...state.dataArray].map((item) =>
         item._id == action.payload._id ? { ...action.payload } : item
       );

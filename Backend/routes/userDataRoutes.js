@@ -11,7 +11,7 @@ const { handleApiError } = require("../middleware/errorHandling");
 
 const router = express.Router();
 
-// router.use(requireAuth);
+router.use(requireAuth);
 
 router.get("/getAllUsers", getAllUsers);
 router.post("/addUser", addUser);
