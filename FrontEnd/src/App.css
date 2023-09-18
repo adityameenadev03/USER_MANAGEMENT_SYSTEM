@@ -17,3 +17,10 @@
 .link_tag {
   text-decoration: none;
 }
+
+.customStyle {
+  /* border: 2px solid red; */
+  border-style: "none" !important;
+  border-color: white !important;
+  /* background-color: red; */
+}

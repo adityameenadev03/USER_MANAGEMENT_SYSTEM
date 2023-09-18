@@ -5,23 +5,33 @@ import ProtectedRoute from "./ProtectRoutes";
 import Login from "../pages/Auth/Login";
 import AddUser from "../pages/User/AddUser";
 import DisplayUserData from "../pages/User/DisplayUserData";
+import MapContainer from "../components/Map/MapContainer";
+import MapWithMarker from "../pages/Maps/MapWithMarker";
 
-const publicRoutes = [{ path: "/home", element: <Home /> }];
+const commonRoutes = [
+  { path: "/home", element: <Home /> },
+  { path: "*", element: <h1>Route not Found</h1> },
+];
 
-const authRoutes = [
+const publicRoutes = [
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <SignUp /> },
 ];
+
 const protectedRoutes = [
   { path: "/displayUserData", element: <DisplayUserData /> },
   { path: "/addUser", element: <AddUser /> },
   { path: "/addUser/:id", element: <AddUser /> },
+  {
+    path: "/maps",
+    element: <MapWithMarker></MapWithMarker>,
+  },
 ];
 
 const routes = (isLoggedIn) => {
   return isLoggedIn
-    ? [...protectedRoutes, ...publicRoutes]
-    : [...publicRoutes, ...authRoutes];
+    ? [...protectedRoutes, ...commonRoutes]
+    : [...publicRoutes, ...commonRoutes];
 };
 export default routes;
 

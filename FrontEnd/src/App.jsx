@@ -1,4 +1,4 @@
-import { useNavigate, useRoutes } from "react-router-dom";
+import { createBrowserRouter, useNavigate, useRoutes } from "react-router-dom";
 import "./App.css";
 
 import routes from "./routes/routes";
@@ -9,6 +9,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Container } from "@mui/material";
 import { useEffect } from "react";
+import Login from "./pages/Auth/Login";
+import SignUp from "./pages/Auth/Signup";
+import DisplayUserData from "./pages/User/DisplayUserData";
+import AddUser from "./pages/User/AddUser";
+import Home from "./pages/Home/Home";
+import ProtectedRoute from "./routes/ProtectRoutes";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state?.auth);
@@ -37,9 +43,9 @@ function App() {
     <Container>
       <NavBar />
       <ToastContainer />
-      {/* {isLoggedIn ? <ProtectedRoute>{routing}</ProtectedRoute> : routing} */}
+      {isLoggedIn ? <ProtectedRoute>{routing}</ProtectedRoute> : routing}
 
-      {routing}
+      {/* {routing} */}
     </Container>
   );
 }

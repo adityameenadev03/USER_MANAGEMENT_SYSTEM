@@ -15,7 +15,6 @@ const Home = () => {
       >
         <Typography variant="h2"> Welcome to Home Page</Typography>
         <Typography variant="h6">
-          {" "}
           Please Login in order to Add users data{" "}
         </Typography>
       </Box>

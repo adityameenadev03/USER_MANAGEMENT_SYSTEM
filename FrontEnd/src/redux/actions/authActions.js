@@ -2,8 +2,6 @@ import { instance } from "../../services/Service";
 import { SET_USER, REMOVE_USER } from "./types";
 import { toast } from "react-toastify";
 
-// /
-
 // export const loginUser = async (param, data) => {
 //   const response = await instance.post(`${param}`, data);
 //   return response?.data;
